@@ -1,0 +1,10 @@
+#!/bin/bash
+
+DIR=$1;
+if ! [ "${DIR:0:1}" = "/" ]
+then
+        DIR=$(pwd)/$DIR
+fi
+chown -R :www-data $DIR/app/cache $DIR/app/logs
+chmod g+s $DIR/app/cache $DIR/app/logs
+setfacl -dR -m g::rwX $DIR/app/cache $DIR/app/logs
