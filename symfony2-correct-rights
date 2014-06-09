@@ -5,6 +5,10 @@ if ! [ "${DIR:0:1}" = "/" ]
 then
         DIR=$(pwd)/$DIR
 fi
-chown -R :www-data $DIR/app/cache $DIR/app/logs
-chmod g+s $DIR/app/cache $DIR/app/logs
-setfacl -dR -m g::rwX $DIR/app/cache $DIR/app/logs
+
+sudo rm -rf $DIR/app/cache/*
+sudo chmod 777 -Rf $DIR/app/cache/*
+sudo chmod 777 -Rf $DIR/app/logs/*
+sudo setfacl -R -m u:www-data:rwX -m u:`whoami`:rwX $DIR/app/cache $DIR/app/logs
+sudo setfacl -dR -m u:www-data:rwx -m u:`whoami`:rwx $DIR/app/cache $DIR/app/logs
+
